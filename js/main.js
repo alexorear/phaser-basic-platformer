@@ -32,6 +32,45 @@ var mainState = {
 
 		// add gravity to effect player
 		this.player.body.gravity.y = 600;
+
+		// create 3 groups that will contain the world objects
+		this.walls = game.add.group();
+		this.coins = game.add.group();
+		this.lava = this.add.group();
+
+		// level design: x = wall, 0 = coin; !=lava
+		var levelLayout = [
+			'xxxxxxxxxxxxxxxxxxxxxx',
+			'x         !          x',
+			'x                 o  x',
+			'X         o          x',
+			'x                    x',
+			'x     o   !    x     x',
+			'xxxxxxxxxxxxxxxx!!!!!x'
+		];
+
+		// create the level by iterating through the array
+		for (let i = 0; i < levelLayout.length; i++) {
+			for (let j = 0; j < levelLayout[i].length; j++) {
+				// create walls
+				if (levelLayout[i][j] === 'x') {
+					let wall = game.add.sprite(30 + (20 * j), 30 + (20 * i));
+					// keeps the walls from falling when the player walk on them
+					wall.body.immovable = true;
+					this.walls.add(wall);
+				}
+				// create coins
+				if (levelLayout[i][j] === 'o') {
+					let coin = game.add.sprite(30 + (20 * j), 30 + (20 * i));
+					this.coins.add(coin);
+				}
+				// create lava
+				if (levelLayout[i][j] === '!') {
+					let lavaBlock = game.add.sprite(30 + (20 * j), 30 + (20 * i));
+					this.lava.add(lavaBlock);
+				}
+			}
+		}
 	},
 
 	update: function() {
