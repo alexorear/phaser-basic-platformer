@@ -5,7 +5,7 @@ All tiles where created with the open source image editor GIMP (https://www.gimp
 
 To view in a browser, this must be run on a simple local server. If Python3 is install this can be served localing with the following commands: $python -m http.server
 
-###Requirements:
+### Requirements:
   - Phaser 2.6.2 "Kore Springs"
   - Local server (Test with Python3 http server)
   
