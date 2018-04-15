@@ -7,7 +7,13 @@ To view in a browser, this must be run on a simple local server. If Python3 is i
 
 ### Requirements:
   - Phaser 2.6.2 "Kore Springs"
-  - Local server (Test with Python3 http server)
+  - Local server (Tested with Python3 http server)
+  
+### Game Controls:
+Controls are currently set up for a keyboard only. Going to add x-input (Xbox style conroller) support in the future.
+  - Move right: right arrow key
+  - Move left: left arrow key
+  - Jump: space bar key
   
 ### Screen Shots
 ![alt text](https://github.com/alexorear/phaser-basic-platformer/blob/master/screen-shots/Screen%20Shot%202018-04-14%20at%209.45.15%20PM.png?raw=true)
