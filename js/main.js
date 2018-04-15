@@ -24,8 +24,9 @@ var mainState = {
 		// add physics engine to all game objects
 		game.world.enableBody = true;
 
-		// variable to store arrow key press
+		// variables to store key presses
 		this.curser = game.input.keyboard.createCursorKeys();
+		this.spaceBar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 		// create play in middle of Game
 		this.player = game.add.sprite(70, 100, 'player')
@@ -40,13 +41,15 @@ var mainState = {
 
 		// level design: x = wall, 0 = coin; !=lava
 		var levelLayout = [
-			'xxxxxxxxxxxxxxxxxxxxxx',
-			'x         !          x',
-			'x                 o  x',
-			'X         o          x',
-			'x                    x',
-			'x     o   !    x     x',
-			'xxxxxxxxxxxxxxxx!!!!!x'
+			'xxxxxxxxxxxxxxxxxxxxxxxx',
+			'!         !            x',
+			'!                  o   x',
+			'! o       o            x',
+			'!      x               x',
+			'!   !     o        x   x',
+			'!x                     x',
+			'!     o   !    x       x',
+			'xxxxxxxxxxxxxxxx!!!!!!!x'
 		];
 
 		// create the level by iterating through the array
@@ -54,19 +57,19 @@ var mainState = {
 			for (let j = 0; j < levelLayout[i].length; j++) {
 				// create walls
 				if (levelLayout[i][j] === 'x') {
-					let wall = game.add.sprite(30 + (20 * j), 30 + (20 * i));
+					let wall = game.add.sprite(10 + (20 * j), 10 + (20 * i), 'wall');
 					// keeps the walls from falling when the player walk on them
 					wall.body.immovable = true;
 					this.walls.add(wall);
 				}
 				// create coins
 				if (levelLayout[i][j] === 'o') {
-					let coin = game.add.sprite(30 + (20 * j), 30 + (20 * i));
+					let coin = game.add.sprite(10 + (20 * j), 10 + (20 * i), 'coin');
 					this.coins.add(coin);
 				}
 				// create lava
 				if (levelLayout[i][j] === '!') {
-					let lavaBlock = game.add.sprite(30 + (20 * j), 30 + (20 * i));
+					let lavaBlock = game.add.sprite(10 + (20 * j), 10 + (20 * i), 'lava');
 					this.lava.add(lavaBlock);
 				}
 			}
@@ -74,19 +77,39 @@ var mainState = {
 	},
 
 	update: function() {
+		// make the player and the walls collide
+		game.physics.arcade.collide(this.player, this.walls);
+
+		// call the takeCoin method when the player overlaps the coins
+		game.physics.arcade.overlap(this.player, this.coins, this.takeCoin, null, this);
+
+		// call the 'restart' method then the player touches lava
+		game.physics.arcade.overlap(this.player, this.lava, this.restart, null, this);
+
 		// move the player when an arrow key is pressed
 		if (this.curser.left.isDown) {
-			this.player.body.velocity.x = -200;
+			this.player.body.velocity.x = -150;
 		} else if (this.curser.right.isDown) {
-			this.player.body.velocity.x = 200;
+			this.player.body.velocity.x = 150;
 		} else {
 			this.player.body.velocity.x = 0;
 		}
 
 		// let the player jump if they are touching the ground
-		if (this.curser.up.isDown && this.player.body.touching.down) {
-			this.player.body.velocity.y = -200;
+		if (this.spaceBar.isDown && this.player.body.touching.down) {
+			this.player.body.velocity.y = -250;
+			console.log('jump');
+			console.log(this.player);
 		}
+
+	},
+
+	takeCoin: function(player, coin) {
+		coin.kill()
+	},
+
+	restart: function() {
+		game.state.start('main');
 	}
 };
 
