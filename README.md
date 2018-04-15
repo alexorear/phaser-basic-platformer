@@ -10,7 +10,7 @@ To view in a browser, this must be run on a simple local server. If Python3 is i
   - Local server (Tested with Python3 http server)
   
 ### Game Controls:
-Controls are currently set up for a keyboard only. Going to add x-input (Xbox style conroller) support in the future.
+Controls are currently set up for keyboard input only. X-input (Xbox style conroller) support will be added in the future.
   - Move right: right arrow key
   - Move left: left arrow key
   - Jump: space bar key
