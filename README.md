@@ -9,3 +9,5 @@ To view in a browser, this must be run on a simple local server. If Python3 is i
   - Phaser 2.6.2 "Kore Springs"
   - Local server (Test with Python3 http server)
   
+### Screen Shots
+![alt text](https://github.com/alexorear/phaser-basic-platformer/blob/master/screen-shots/Screen%20Shot%202018-04-14%20at%209.45.15%20PM.png?raw=true)
